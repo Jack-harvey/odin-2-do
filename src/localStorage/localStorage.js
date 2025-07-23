@@ -83,7 +83,7 @@ export const getListOfToDos = function (projectId) {
 };
 
 export const checkIfLocalStorageDataExists = function () {
-  if (!JSON.parse(localStorage.getItem("projects")) && !JSON.parse(localStorage.getItem("todo"))) {
+  if (!JSON.parse(localStorage.getItem("project")) && !JSON.parse(localStorage.getItem("todo"))) {
     console.log("no data exists");
     createFirstTimeData();
     return;
@@ -92,7 +92,7 @@ export const checkIfLocalStorageDataExists = function () {
   return;
 };
 
-export const createFirstTimeData = function () {
+const createFirstTimeData = function () {
   createStore("project");
   const firstTimeProject = new Project("Clean the house", "Pretend visitors are on their way!");
   add("project", firstTimeProject);
