@@ -1,7 +1,8 @@
-import { Project } from "../features/projects/scripts/project";
-import { todo } from "../features/toDos/scripts/todo";
+import { Todo } from "../modules/todo/todo";
+import { Project } from "../modules/project/project";
+import { format } from "date-fns";
 
-export function create(storeName) {
+export function createStore(storeName) {
   localStorage.setItem(storeName, JSON.stringify([]));
 }
 
@@ -53,7 +54,7 @@ const getStore = function (storeName) {
   let store = JSON.parse(localStorage.getItem(storeName));
 
   if (!store) {
-    create(storeName);
+    createStore(storeName);
     store = JSON.parse(localStorage.getItem(storeName));
   }
 
@@ -75,14 +76,14 @@ const saveToLocalStorage = function (storeName, store) {
 };
 
 export const getListOfToDos = function (projectId) {
-  const store = getStore("todos");
+  const store = getStore("todo");
   let associatedTodos = store.filter((item) => item.projectId === projectId);
   console.log(associatedTodos);
   return associatedTodos;
 };
 
 export const checkIfLocalStorageDataExists = function () {
-  if (!JSON.parse(localStorage.getItem("projects")) && !JSON.parse(localStorage.getItem("todos"))) {
+  if (!JSON.parse(localStorage.getItem("projects")) && !JSON.parse(localStorage.getItem("todo"))) {
     console.log("no data exists");
     createFirstTimeData();
     return;
@@ -91,46 +92,29 @@ export const checkIfLocalStorageDataExists = function () {
   return;
 };
 
-const createFirstTimeData = function () {
-  create("projects");
-  const initialProject = new Project(
-    "Clean the house",
-    "The house needs to be cleaned every day",
-    "Do the dishes before bed because it makes you happy.",
-    "#0bd6a7"
-  );
-  add("projects", initialProject);
+export const createFirstTimeData = function () {
+  createStore("project");
+  const firstTimeProject = new Project("Clean the house", "Pretend visitors are on their way!");
+  add("project", firstTimeProject);
 
-  create("todos");
-  const toDoForTest0 = todo(
-    "Wash the dishes",
-    false,
-    "Wash the dishes using soap and water at the sink",
-    "Don't forget the cup on your desk",
-    "1/12/25",
-    initialProject.id
+  createStore("todo");
+  const firstTimeTodoOne = new Todo(
+    "Dishes",
+    "Wash the dishes to completion",
+    format(new Date(2077, 1, 5), "dd/MM/yyyy"),
+    firstTimeProject.id,
+    0
   );
-  const toDoForTest1 = todo(
-    "put away all the  things",
-    false,
-    "Tidy up",
-    "everything has a home, if it doesn't then make one",
-    "1/1/93",
-    initialProject.id
+  const firstTimeTodoTwo = new Todo(
+    "Dishes",
+    "Wash the dishes to completion",
+    format(new Date(2077, 2, 3), "dd/MM/yyyy"),
+    firstTimeProject.id,
+    1
   );
-  const toDoForTest2 = todo(
-    "fold the washing",
-    true,
-    "Fold it like Marie Kondo!",
-    "It can't live on the couch FOREVER",
-    "30/5/25",
-    initialProject.id
-  );
-  const toDoForTest3 = todo("Clean out the fridge", false, "", "", "30/5/25", initialProject.id);
-  add("todos", toDoForTest0);
-  add("todos", toDoForTest1);
-  add("todos", toDoForTest2);
-  add("todos", toDoForTest3);
+
+  add("todo", firstTimeTodoOne);
+  add("todo", firstTimeTodoTwo);
 };
 
 export const getCountOfAllTodosOnProject = function (projectId) {
