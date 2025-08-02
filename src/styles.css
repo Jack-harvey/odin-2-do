@@ -1,5 +1,19 @@
 @import "modern-normalize.css";
 
+:root {
+  --backgroundColor: #fff8f5;
+  --fontColor: #000000;
+  --accentColor: #bde0fe;
+  --accentColorDarker: #a2d2ff;
+
+  /* 
+  #FFAFCC
+  #CDB4DB
+  #FFC8DD
+  
+  */
+}
+
 body {
   height: 100vh;
   display: grid;
@@ -8,21 +22,22 @@ body {
 }
 
 main {
-  background-color: black;
+  background-color: var(--backgroundColor);
   grid-area: 1 /2 /2 /4;
 }
 
-/* header {
-  background-color: aquamarine;
-  grid-area: 1/2/1/4;
-} */
-
 aside {
-  background-color: bisque;
+  background-color: var(--accentColor);
   grid-area: 1/1/3/2;
 }
 
+.project-area {
+  border-top: 2px black solid;
+  margin-top: 4rem;
+  padding-top: 1rem;
+}
+
 footer {
-  background-color: limegreen;
+  background-color: var(--accentColorDarker);
   grid-area: 2/2/3/4;
 }
