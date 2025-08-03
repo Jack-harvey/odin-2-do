@@ -24,6 +24,9 @@ body {
 main {
   background-color: var(--backgroundColor);
   grid-area: 1 /2 /2 /4;
+
+  display: grid;
+  grid-template-columns: auto clamp(10rem, 24rem, 24rem);
 }
 
 aside {
