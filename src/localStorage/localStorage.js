@@ -106,8 +106,8 @@ const createFirstTimeData = function () {
     0
   );
   const firstTimeTodoTwo = new Todo(
-    "Dishes",
-    "Wash the dishes to completion",
+    "FISHES",
+    "Wash the FISHES to completion",
     format(new Date(2077, 2, 3), "dd/MM/yyyy"),
     firstTimeProject.id,
     1
@@ -129,11 +129,11 @@ export const getCountOfAllCompletedTodosOnProject = function (projectId) {
 };
 
 export const getAllProjects = function () {
-  return getStore("projects");
+  return getStore("project");
 };
 
 export const getProjectDetails = function (projectId) {
-  const projects = getStore("projects");
+  const projects = getStore("project");
   const project = projects.filter((project) => project.id === projectId);
   return project[0];
 };
