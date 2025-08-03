@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { getListOfToDos, getProjectDetails } from "../../localStorage/localStorage";
 export class Todo {
   constructor(title, description, dueDate, projectId, isUrgent) {
     this.id = crypto.randomUUID();
@@ -14,22 +15,63 @@ export class Todo {
 
 //create table, create a function for a single row, create a loop for each todo, add table to page
 
-const createTableElement = function () {
+export const attachTodoTable = function (projectId) {
+  const mainEl = document.querySelector("#todoTable");
+  const tableEl = createTableElement(projectId);
+  mainEl.appendChild(tableEl);
+};
+
+const createTableElement = function (projectId) {
   const tableEl = document.createElement("table");
   tableEl.classList.add("todo-table");
-  tableEl.innerHTML = `
-          <tr class="table-header">
-            <th></th>
-            <th>Todo</th>
-            <th>Notes</th>
-            <th>Due-Date</th>
-          </tr>
-  `;
+
+  const todos = getListOfToDos(projectId);
+  todos.forEach((todo) => {
+    const tableRow = createTableRow(todo, getProjectDetails(projectId).title);
+    tableEl.appendChild(tableRow);
+  });
 
   return tableEl;
 };
 
-const createTableRow = function (todo) {
+const createTableRow = function (todo, projectName) {
   const tableRow = document.createElement("tr");
   tableRow.dataset.id = todo.id;
+
+  const tableDataName = document.createElement("td");
+  tableDataName.textContent = todo.title;
+
+  const tableDataProjectName = document.createElement("td");
+  tableDataProjectName.textContent = projectName;
+
+  const tableDataDueDate = document.createElement("td");
+  tableDataDueDate.textContent = todo.dueDate;
+
+  const tableDataDeleteButton = document.createElement("i");
+  tableDataDeleteButton.classList.add("fa-solid", "fa-trash");
+
+  const tableDataPriorityButton = document.createElement("i");
+  tableDataPriorityButton.classList.add("fa-solid", "fa-flag");
+
+  const iscomplete = todo.completedDate;
+
+  tableRow.append(
+    checkMarkElement(iscomplete),
+    tableDataName,
+    tableDataProjectName,
+    tableDataDueDate,
+    tableDataPriorityButton,
+    tableDataDeleteButton
+  );
+
+  return tableRow;
+};
+
+const checkMarkElement = function (isComplete) {
+  const tableDataCheckbox = document.createElement("i");
+  tableDataCheckbox.classList.add("fa-regular");
+  isComplete
+    ? tableDataCheckbox.classList.add("fa-square-check")
+    : tableDataCheckbox.classList.add("fa-square");
+  return tableDataCheckbox;
 };
