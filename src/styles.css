@@ -6,6 +6,8 @@
   --accentColor: #bde0fe;
   --accentColorDarker: #a2d2ff;
 
+  --warningColor: red;
+
   /* 
   #FFAFCC
   #CDB4DB
@@ -43,4 +45,8 @@ aside {
 footer {
   background-color: var(--accentColorDarker);
   grid-area: 2/2/3/4;
+}
+
+.fa-trash {
+  color: var(--warningColor);
 }
