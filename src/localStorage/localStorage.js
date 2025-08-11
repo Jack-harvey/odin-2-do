@@ -1,6 +1,6 @@
 import { Todo } from "../modules/todo/todo";
 import { Project } from "../modules/project/project";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns";
 
 export function createStore(storeName) {
   localStorage.setItem(storeName, JSON.stringify([]));
@@ -82,6 +82,17 @@ export const getListOfToDos = function (projectId) {
   return associatedTodos;
 };
 
+const getListOfAllUncompletedTodos = function () {
+  const store = getStore("todo");
+  let associatedTodos = store.filter((item) => item.completedDate === null);
+  return associatedTodos;
+};
+
+const getListOfTodosMatchingDateFromFilteredArray = function (filteredArray, date) {
+  let associatedTodos = filteredArray.filter((item) => item.dueDate === date);
+  return associatedTodos;
+};
+
 export const checkIfLocalStorageDataExists = function () {
   if (!JSON.parse(localStorage.getItem("project")) && !JSON.parse(localStorage.getItem("todo"))) {
     console.log("no data exists");
@@ -108,7 +119,7 @@ const createFirstTimeData = function () {
   const firstTimeTodoTwo = new Todo(
     "FISHES",
     "Wash the FISHES to completion",
-    format(new Date(2077, 2, 3), "dd/MM/yyyy"),
+    format(addDays(new Date(), 2), "dd/MM/yyyy"),
     firstTimeProject.id,
     1
   );
@@ -136,4 +147,24 @@ export const getProjectDetails = function (projectId) {
   const projects = getStore("project");
   const project = projects.filter((project) => project.id === projectId);
   return project[0];
+};
+
+export const getAllTodosWithinDayTimeFrame = function (timeFrameInDays) {
+  //get all todos with no completed date
+  //get all todos with a date that = today+1,2,3,4,5,6,7 upto frame in days
+
+  const allUncompletedTodos = getListOfAllUncompletedTodos();
+  const TODAY = format(new Date(), "dd/MM/yyyy");
+  const result = [];
+
+  for (let i = 0; i < timeFrameInDays; i++) {
+    const dateToFilter = addDays(TODAY, timeFrameInDays);
+    const matchingTodos = getListOfTodosMatchingDateFromFilteredArray(
+      allUncompletedTodos,
+      dateToFilter
+    );
+
+    result.push(...matchingTodos);
+  }
+  return result;
 };
