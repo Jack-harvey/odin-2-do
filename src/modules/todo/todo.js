@@ -7,7 +7,7 @@ export class Todo {
     this.description = description;
     this.dueDate = dueDate;
     this.projectId = projectId;
-    this.createdDate = format(new Date(), "dd/MM/yyyy");
+    this.createdDate = new Date().toISOString();
     this.completedDate = null;
     this.isUrgent = isUrgent;
   }

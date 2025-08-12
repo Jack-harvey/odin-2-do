@@ -89,7 +89,9 @@ const getListOfAllUncompletedTodos = function () {
 };
 
 const getListOfTodosMatchingDateFromFilteredArray = function (filteredArray, date) {
-  let associatedTodos = filteredArray.filter((item) => item.dueDate === date);
+  let associatedTodos = filteredArray.filter(
+    (item) => format(item.dueDate, "dd/MM/yyyy") === format(date, "dd/MM/yyyy")
+  );
   return associatedTodos;
 };
 
@@ -112,14 +114,14 @@ const createFirstTimeData = function () {
   const firstTimeTodoOne = new Todo(
     "Dishes",
     "Wash the dishes to completion",
-    format(new Date(2077, 1, 5), "dd/MM/yyyy"),
+    new Date().toISOString(2077, 1, 5),
     firstTimeProject.id,
     0
   );
   const firstTimeTodoTwo = new Todo(
     "FISHES",
     "Wash the FISHES to completion",
-    format(addDays(new Date(), 2), "dd/MM/yyyy"),
+    addDays(new Date().toISOString(), 2),
     firstTimeProject.id,
     1
   );
@@ -154,11 +156,11 @@ export const getAllTodosWithinDayTimeFrame = function (timeFrameInDays) {
   //get all todos with a date that = today+1,2,3,4,5,6,7 upto frame in days
 
   const allUncompletedTodos = getListOfAllUncompletedTodos();
-  const TODAY = format(new Date(), "dd/MM/yyyy");
+  const TODAY = new Date().toISOString();
   const result = [];
 
   for (let i = 0; i < timeFrameInDays; i++) {
-    const dateToFilter = addDays(TODAY, timeFrameInDays);
+    const dateToFilter = addDays(TODAY, i);
     const matchingTodos = getListOfTodosMatchingDateFromFilteredArray(
       allUncompletedTodos,
       dateToFilter
