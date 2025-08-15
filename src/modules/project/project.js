@@ -22,6 +22,7 @@ export const renderAllProjectsToSideBar = function () {
     const listItemElement = document.createElement("li");
     listItemElement.textContent = projectName;
     listItemElement.dataset.id = projectId;
+    listItemElement.classList.add("project-list-item");
 
     projectListElement.append(listItemElement);
   });
