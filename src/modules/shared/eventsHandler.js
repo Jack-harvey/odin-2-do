@@ -4,6 +4,7 @@
 // as well.
 
 import { attachTodoTable } from "../todo/todo";
+import { clearTodoTable } from "./common";
 
 export const addAsideEventhandler = function () {
   const asideEl = document.querySelector("aside");
@@ -11,6 +12,7 @@ export const addAsideEventhandler = function () {
     const targetClassList = e.target.classList;
 
     if (targetClassList.contains("project-list-item")) {
+      clearTodoTable();
       attachTodoTable(e.target.dataset.id);
     }
   });
