@@ -1,6 +1,6 @@
 import { Todo } from "../modules/todo/todo";
 import { Project } from "../modules/project/project";
-import { format, addDays } from "date-fns";
+import { format, addDays, isBefore } from "date-fns";
 
 export function createStore(storeName) {
   localStorage.setItem(storeName, JSON.stringify([]));
@@ -78,7 +78,6 @@ const saveToLocalStorage = function (storeName, store) {
 export const getListOfToDos = function (projectId) {
   const store = getStore("todo");
   let associatedTodos = store.filter((item) => item.projectId === projectId);
-  console.log(associatedTodos);
   return associatedTodos;
 };
 
@@ -114,7 +113,7 @@ const createFirstTimeData = function () {
   const firstTimeTodoOne = new Todo(
     "Dishes",
     "Wash the dishes to completion",
-    new Date().toISOString(2077, 1, 5),
+    new Date(2077, 1, 5).toISOString(),
     firstTimeProject.id,
     0
   );
@@ -152,21 +151,10 @@ export const getProjectDetails = function (projectId) {
 };
 
 export const getAllTodosWithinDayTimeFrame = function (timeFrameInDays) {
-  //get all todos with no completed date
-  //get all todos with a date that = today+1,2,3,4,5,6,7 upto frame in days
-
   const allUncompletedTodos = getListOfAllUncompletedTodos();
   const TODAY = new Date().toISOString();
-  const result = [];
+  const dateToFilter = addDays(TODAY, timeFrameInDays);
+  const result = allUncompletedTodos.filter((todo) => isBefore(todo.dueDate, dateToFilter));
 
-  for (let i = 0; i < timeFrameInDays; i++) {
-    const dateToFilter = addDays(TODAY, i);
-    const matchingTodos = getListOfTodosMatchingDateFromFilteredArray(
-      allUncompletedTodos,
-      dateToFilter
-    );
-
-    result.push(...matchingTodos);
-  }
   return result;
 };
