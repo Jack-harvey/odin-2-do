@@ -87,13 +87,6 @@ const getListOfAllUncompletedTodos = function () {
   return associatedTodos;
 };
 
-const getListOfTodosMatchingDateFromFilteredArray = function (filteredArray, date) {
-  let associatedTodos = filteredArray.filter(
-    (item) => format(item.dueDate, "dd/MM/yyyy") === format(date, "dd/MM/yyyy")
-  );
-  return associatedTodos;
-};
-
 export const checkIfLocalStorageDataExists = function () {
   if (!JSON.parse(localStorage.getItem("project")) && !JSON.parse(localStorage.getItem("todo"))) {
     console.log("no data exists");

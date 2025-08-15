@@ -15,6 +15,8 @@ export class Todo {
 
 //create table, create a function for a single row, create a loop for each todo, add table to page
 
+//send a request to the todo page to load todos, via an array of todos not a PID
+
 export const attachTodoTable = function (projectId) {
   const mainEl = document.querySelector("#todoTable");
   const tableEl = createTableElement(projectId);
