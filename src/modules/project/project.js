@@ -1,5 +1,5 @@
 import { compareAsc, format } from "date-fns";
-import { getAllProjects } from "../../localStorage/localStorage";
+import { getAllProjects, getProjectDetails } from "../../localStorage/localStorage";
 export class Project {
   constructor(title, description) {
     this.id = crypto.randomUUID();
@@ -26,4 +26,13 @@ export const renderAllProjectsToSideBar = function () {
 
     projectListElement.append(listItemElement);
   });
+};
+
+export const renderProjectInfoForTodos = function (projectId) {
+  const project = getProjectDetails(projectId);
+  const headerEl = document.querySelector(".project-title");
+  const descriptionEl = document.querySelector(".project-description");
+
+  headerEl.textContent = project.title;
+  descriptionEl.textContent = project.description;
 };
