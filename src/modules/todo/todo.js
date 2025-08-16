@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { getListOfToDos, getProjectDetails } from "../../localStorage/localStorage";
+import { dateFormatter } from "../shared/common";
 export class Todo {
   constructor(title, description, dueDate, projectId, isUrgent) {
     this.id = crypto.randomUUID();
@@ -47,7 +48,7 @@ const createTableRow = function (todo, projectName) {
   tableDataProjectName.textContent = projectName;
 
   const tableDataDueDate = document.createElement("td");
-  tableDataDueDate.textContent = todo.dueDate;
+  tableDataDueDate.textContent = dateFormatter(todo.dueDate);
 
   const tableDataDeleteButton = document.createElement("i");
   tableDataDeleteButton.classList.add("fa-solid", "fa-trash");
