@@ -51,10 +51,10 @@ const createTableRow = function (todo, projectName) {
   tableDataDueDate.textContent = dateFormatter(todo.dueDate);
 
   const tableDataDeleteButton = document.createElement("i");
-  tableDataDeleteButton.classList.add("fa-solid", "fa-trash");
+  tableDataDeleteButton.classList.add("fa-solid", "fa-trash", "delete-icon");
 
   const tableDataPriorityButton = document.createElement("i");
-  tableDataPriorityButton.classList.add("fa-solid", "fa-flag");
+  tableDataPriorityButton.classList.add("fa-solid", "fa-flag", "priority-icon");
 
   const iscomplete = todo.completedDate;
 
@@ -67,14 +67,30 @@ const createTableRow = function (todo, projectName) {
     tableDataDeleteButton
   );
 
+  tableRow.classList.add("todo-list-item");
+
   return tableRow;
 };
 
 const checkMarkElement = function (isComplete) {
   const tableDataCheckbox = document.createElement("i");
+  tableDataCheckbox.classList.add("checkbox");
   tableDataCheckbox.classList.add("fa-regular");
   isComplete
     ? tableDataCheckbox.classList.add("fa-square-check")
     : tableDataCheckbox.classList.add("fa-square");
   return tableDataCheckbox;
+};
+
+const toggleCheckMarkElement = function (targetElement) {
+  const checkedBoxClass = "fa-square-check";
+  const uncheckedBoxClass = "fa-square";
+
+  if (targetElement.classList.contains(checkedBoxClass)) {
+    targetElement.classList.remove(checkedBoxClass);
+    targetElement.classList.add(uncheckedBoxClass);
+  } else {
+    targetElement.classList.remove(uncheckedBoxClass);
+    targetElement.classList.add(checkedBoxClass);
+  }
 };
