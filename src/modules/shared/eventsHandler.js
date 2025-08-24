@@ -17,6 +17,22 @@ export const addAsideEventhandler = function () {
       clearTodoTable();
       renderProjectInfoForTodos(projectId);
       attachTodoTable(projectId);
+      addTodoListItemEventHandler();
+    }
+  });
+};
+
+const addTodoListItemEventHandler = function () {
+  const todoTableEl = document.querySelector(".todo-table");
+  todoTableEl.addEventListener("click", (e) => {
+    if (e.target.classList.contains("checkbox")) {
+      console.log("checkbox");
+    }
+    if (e.target.classList.contains("delete-icon")) {
+      console.log("delte");
+    }
+    if (e.target.classList.contains("priority-icon")) {
+      console.log("pri");
     }
   });
 };
