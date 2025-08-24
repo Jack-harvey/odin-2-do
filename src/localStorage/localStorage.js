@@ -2,24 +2,24 @@ import { Todo } from "../modules/todo/todo";
 import { Project } from "../modules/project/project";
 import { format, addDays, isBefore } from "date-fns";
 
-export function createStore(storeName) {
+export const createStore = function (storeName) {
   localStorage.setItem(storeName, JSON.stringify([]));
-}
+};
 
-export function add(storeName, object) {
+export const add = function (storeName, object) {
   const store = getStore(storeName);
   store.push(object);
   saveToLocalStorage(storeName, store);
-}
+};
 
-export function read(storeName, id) {
+export const read = function (storeName, id) {
   const record = getRecord(storeName, id);
   console.log("ls read");
   console.log(record);
   return record[0];
-}
+};
 
-export function update(storeName, id, newRecord) {
+export const update = function (storeName, id, newRecord) {
   const store = getStore(storeName);
   const index = getIndex(storeName, id);
   const spread = { ...newRecord };
@@ -32,7 +32,7 @@ export function update(storeName, id, newRecord) {
   console.log(store[index]);
 
   saveToLocalStorage(storeName, store);
-}
+};
 
 export function remove(storeName, id) {
   const store = getStore(storeName);

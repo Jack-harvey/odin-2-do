@@ -4,7 +4,7 @@
 // as well.
 
 import { renderProjectInfoForTodos } from "../project/project";
-import { attachTodoTable } from "../todo/todo";
+import { attachTodoTable, toggleCheckMarkElement } from "../todo/todo";
 import { clearTodoTable } from "./common";
 
 export const addAsideEventhandler = function () {
@@ -27,6 +27,7 @@ const addTodoListItemEventHandler = function () {
   todoTableEl.addEventListener("click", (e) => {
     if (e.target.classList.contains("checkbox")) {
       console.log("checkbox");
+      toggleCheckMarkElement(e.target);
     }
     if (e.target.classList.contains("delete-icon")) {
       console.log("delte");

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import { getListOfToDos, getProjectDetails } from "../../localStorage/localStorage";
+import { getListOfToDos, getProjectDetails, read, update } from "../../localStorage/localStorage";
 import { dateFormatter } from "../shared/common";
 export class Todo {
   constructor(title, description, dueDate, projectId, isUrgent) {
@@ -82,14 +82,21 @@ const checkMarkElement = function (isComplete) {
   return tableDataCheckbox;
 };
 
-const toggleCheckMarkElement = function (targetElement) {
+export const toggleCheckMarkElement = function (targetElement) {
   const checkedBoxClass = "fa-square-check";
   const uncheckedBoxClass = "fa-square";
+  const todoId = targetElement.parentElement.dataset.id;
+
+  const record = read("todo", todoId);
 
   if (targetElement.classList.contains(checkedBoxClass)) {
+    record.completedDate = null;
+    update("todo", todoId, record);
     targetElement.classList.remove(checkedBoxClass);
     targetElement.classList.add(uncheckedBoxClass);
   } else {
+    record.completedDate = new Date().toISOString();
+    update("todo", todoId, record);
     targetElement.classList.remove(uncheckedBoxClass);
     targetElement.classList.add(checkedBoxClass);
   }
