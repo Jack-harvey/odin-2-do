@@ -50,3 +50,7 @@ footer {
 .fa-trash {
   color: var(--warningColor);
 }
+
+.red {
+  color: var(--warningColor);
+}

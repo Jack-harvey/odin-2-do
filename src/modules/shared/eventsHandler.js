@@ -4,7 +4,7 @@
 // as well.
 
 import { renderProjectInfoForTodos } from "../project/project";
-import { attachTodoTable, toggleCheckMarkElement } from "../todo/todo";
+import { attachTodoTable, toggleCheckMarkElement, toggleUrgency } from "../todo/todo";
 import { clearTodoTable } from "./common";
 
 export const addAsideEventhandler = function () {
@@ -34,6 +34,7 @@ const addTodoListItemEventHandler = function () {
     }
     if (e.target.classList.contains("priority-icon")) {
       console.log("pri");
+      toggleUrgency(e.target);
     }
   });
 };

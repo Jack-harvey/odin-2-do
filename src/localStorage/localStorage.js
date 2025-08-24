@@ -108,14 +108,14 @@ const createFirstTimeData = function () {
     "Wash the dishes to completion",
     new Date(2077, 1, 5).toISOString(),
     firstTimeProject.id,
-    0
+    false
   );
   const firstTimeTodoTwo = new Todo(
     "FISHES",
     "Wash the FISHES to completion",
     addDays(new Date().toISOString(), 2),
     firstTimeProject.id,
-    1
+    true
   );
 
   add("todo", firstTimeTodoOne);

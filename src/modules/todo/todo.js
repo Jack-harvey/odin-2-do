@@ -53,8 +53,8 @@ const createTableRow = function (todo, projectName) {
   const tableDataDeleteButton = document.createElement("i");
   tableDataDeleteButton.classList.add("fa-solid", "fa-trash", "delete-icon");
 
-  const tableDataPriorityButton = document.createElement("i");
-  tableDataPriorityButton.classList.add("fa-solid", "fa-flag", "priority-icon");
+  // const tableDataPriorityButton = document.createElement("i");
+  // tableDataPriorityButton.classList.add("fa-solid", "fa-flag", "priority-icon");
 
   const iscomplete = todo.completedDate;
 
@@ -63,7 +63,7 @@ const createTableRow = function (todo, projectName) {
     tableDataName,
     tableDataProjectName,
     tableDataDueDate,
-    tableDataPriorityButton,
+    urgencyElement(todo.isUrgent),
     tableDataDeleteButton
   );
 
@@ -80,6 +80,15 @@ const checkMarkElement = function (isComplete) {
     ? tableDataCheckbox.classList.add("fa-square-check")
     : tableDataCheckbox.classList.add("fa-square");
   return tableDataCheckbox;
+};
+
+const urgencyElement = function (isUrgent) {
+  const tableDataPriorityButton = document.createElement("i");
+  tableDataPriorityButton.classList.add("fa-solid", "fa-flag", "priority-icon");
+  if (isUrgent) {
+    tableDataPriorityButton.classList.add("red");
+  }
+  return tableDataPriorityButton;
 };
 
 export const toggleCheckMarkElement = function (targetElement) {
@@ -100,4 +109,18 @@ export const toggleCheckMarkElement = function (targetElement) {
     targetElement.classList.remove(uncheckedBoxClass);
     targetElement.classList.add(checkedBoxClass);
   }
+};
+
+export const toggleUrgency = function (targetElement) {
+  const todoId = targetElement.parentElement.dataset.id;
+  const record = read("todo", todoId);
+
+  record.isUrgent = !record.isUrgent;
+
+  if (record.isUrgent) {
+    targetElement.classList.add("red");
+  } else {
+    targetElement.classList.remove("red");
+  }
+  update("todo", todoId, record);
 };
