@@ -2,7 +2,7 @@ import { format } from "date-fns";
 import { getListOfToDos, getProjectDetails, read, update } from "../../localStorage/localStorage";
 import { dateFormatter } from "../shared/common";
 export class Todo {
-  constructor(title, description, dueDate, projectId, isUrgent) {
+  constructor(title, description = null, dueDate = null, projectId, isUrgent = false) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.description = description;
