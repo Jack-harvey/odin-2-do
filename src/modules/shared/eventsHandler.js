@@ -38,3 +38,23 @@ const addTodoListItemEventHandler = function () {
     }
   });
 };
+
+export const addNewTodoInputEventHandler = function () {
+  const inputElement = document.querySelector("#newTodoInput");
+
+  inputElement.addEventListener("click", (e) => {
+    if (e.target.classList.contains("calendar")) {
+      console.log("cal :)");
+      e.currentTarget.showPicker();
+    }
+    if (e.target.classList.contains("flag")) {
+      console.log("flag :)");
+    }
+  });
+
+  inputElement.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      console.log("enter pressed :)");
+    }
+  });
+};
