@@ -49,12 +49,19 @@ export const addNewTodoInputEventHandler = function () {
     }
     if (e.target.classList.contains("flag")) {
       console.log("flag :)");
+      e.target.classList.toggle("red");
     }
   });
 
   inputElement.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       console.log("enter pressed :)");
+
+      const textData = "";
+      const dateData = "";
+      const flagIsSet = false;
     }
   });
 };
+
+const inputSubmit = function () {};
