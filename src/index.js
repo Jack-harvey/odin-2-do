@@ -12,6 +12,5 @@ checkIfLocalStorageDataExists();
 renderAllProjectsToSideBar();
 
 addAsideEventhandler();
-addNewTodoInputEventHandler();
 
 console.log(getAllTodosWithinDayTimeFrame(3));
