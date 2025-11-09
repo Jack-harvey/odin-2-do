@@ -7,6 +7,7 @@
   --accentColorDarker: #a2d2ff;
 
   --warningColor: red;
+  --inputColor: white;
 
   /* 
   #FFAFCC
@@ -53,6 +54,37 @@ footer {
 
 .red {
   color: var(--warningColor);
+}
+
+#newTodoInput {
+  border: black 2px solid;
+  border-radius: 9px;
+  width: 23rem;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--inputColor);
+  justify-content: space-between;
+
+  #create {
+    margin-left: 7px;
+    border: none;
+    width: 16rem;
+  }
+  div {
+    background-color: #a2d2ff;
+    margin-right: 7px;
+
+    input {
+      border: none;
+      padding: none;
+      margin: none;
+      text-align: center;
+    }
+
+    .flag {
+      border: none;
+    }
+  }
 }
 
 input[type="date"]::-webkit-inner-spin-button,
