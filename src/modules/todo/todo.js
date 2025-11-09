@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { getListOfToDos, getProjectDetails, read, update } from "../../localStorage/localStorage";
 import { dateFormatter } from "../shared/common";
+import { addNewTodoInputEventHandler } from "../shared/eventsHandler";
 export class Todo {
   constructor(title, description = null, dueDate = null, projectId, isUrgent = false) {
     this.id = crypto.randomUUID();
@@ -21,6 +22,8 @@ export class Todo {
 export const attachTodoTable = function (projectId) {
   const mainEl = document.querySelector("#todoTable");
   const tableEl = createTableElement(projectId);
+  mainEl.appendChild(createNewTodoInput());
+  addNewTodoInputEventHandler();
   mainEl.appendChild(tableEl);
 };
 
@@ -123,4 +126,25 @@ export const toggleUrgency = function (targetElement) {
     targetElement.classList.remove("red");
   }
   update("todo", todoId, record);
+};
+
+const createNewTodoInput = function () {
+  const form = document.createElement("form");
+  form.name = "todoForm";
+  form.action = "submit";
+
+  const mainEl = document.createElement("div");
+  mainEl.id = "newTodoInput";
+  mainEl.classList.add("new-todo");
+  mainEl.innerHTML = `
+  <label for="create"></label>
+        <input type="text" id="create" />
+        <div>
+        <label for="dueDate"></label>
+        <input type="date" name="dueDate" id="dueDate" />
+        <i class="flag fa-solid fa-flag"></i>
+        </div>`;
+
+  form.appendChild(mainEl);
+  return form;
 };
