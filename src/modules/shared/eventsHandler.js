@@ -4,7 +4,12 @@
 // as well.
 
 import { renderProjectInfoForTodos } from "../project/project";
-import { attachTodoTable, toggleCheckMarkElement, toggleUrgency } from "../todo/todo";
+import {
+  attachTodoTable,
+  getFormValues,
+  toggleCheckMarkElement,
+  toggleUrgency,
+} from "../todo/todo";
 import { clearTodoTable } from "./common";
 
 export const addAsideEventhandler = function () {
@@ -57,9 +62,7 @@ export const addNewTodoInputEventHandler = function () {
     if (e.key === "Enter") {
       console.log("enter pressed :)");
 
-      const textData = "";
-      const dateData = "";
-      const flagIsSet = false;
+      console.log(getFormValues());
     }
   });
 };

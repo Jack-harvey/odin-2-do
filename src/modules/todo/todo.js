@@ -131,7 +131,8 @@ export const toggleUrgency = function (targetElement) {
 const createNewTodoInput = function () {
   const form = document.createElement("form");
   form.name = "todoForm";
-  form.action = "submit";
+  // form.action = "submit";
+  form.id = "newTodoForm";
 
   const mainEl = document.createElement("div");
   mainEl.id = "newTodoInput";
@@ -142,9 +143,19 @@ const createNewTodoInput = function () {
         <div>
         <label for="dueDate"></label>
         <input type="date" name="dueDate" id="dueDate" />
-        <i class="flag fa-solid fa-flag"></i>
+        <i class="flag fa-solid fa-flag" id="CreatePriorityFlag"></i>
         </div>`;
 
   form.appendChild(mainEl);
   return form;
+};
+
+export const getFormValues = function () {
+  const inputText = document.querySelector("#create").value;
+  const dueDate = document.querySelector("#dueDate").value;
+  const priority = document.querySelector("#CreatePriorityFlag").classList.contains("red")
+    ? true
+    : false;
+
+  return { inputText, dueDate, priority };
 };
