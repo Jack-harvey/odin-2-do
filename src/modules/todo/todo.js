@@ -22,7 +22,7 @@ export class Todo {
 export const attachTodoTable = function (projectId) {
   const mainEl = document.querySelector("#todoTable");
   const tableEl = createTableElement(projectId);
-  mainEl.appendChild(createNewTodoInput());
+  mainEl.appendChild(createNewTodoInput(projectId));
   addNewTodoInputEventHandler();
   mainEl.appendChild(tableEl);
 };
@@ -128,11 +128,12 @@ export const toggleUrgency = function (targetElement) {
   update("todo", todoId, record);
 };
 
-const createNewTodoInput = function () {
+const createNewTodoInput = function (projectId) {
   const form = document.createElement("form");
   form.name = "todoForm";
   // form.action = "submit";
   form.id = "newTodoForm";
+  form.dataset.projectId = projectId;
 
   const mainEl = document.createElement("div");
   mainEl.id = "newTodoInput";
@@ -151,11 +152,12 @@ const createNewTodoInput = function () {
 };
 
 export const getFormValues = function () {
+  const projectId = document.querySelector("#newTodoForm").dataset.projectId;
   const inputText = document.querySelector("#create").value;
   const dueDate = document.querySelector("#dueDate").value;
   const priority = document.querySelector("#CreatePriorityFlag").classList.contains("red")
     ? true
     : false;
 
-  return { inputText, dueDate, priority };
+  return { projectId, inputText, dueDate, priority };
 };
