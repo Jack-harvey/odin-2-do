@@ -62,7 +62,7 @@ export const addNewTodoInputEventHandler = function () {
     if (e.key === "Enter") {
       console.log("enter pressed :)");
 
-      console.log(getFormValues());
+      console.log(getFormValues().title);
     }
   });
 };

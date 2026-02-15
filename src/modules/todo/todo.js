@@ -1,5 +1,11 @@
-import { format } from "date-fns";
-import { getListOfToDos, getProjectDetails, read, update } from "../../localStorage/localStorage";
+import { add, format } from "date-fns";
+import {
+  getListOfToDos,
+  getProjectDetails,
+  read,
+  update,
+  add as addToLocalStorage,
+} from "../../localStorage/localStorage";
 import { dateFormatter } from "../shared/common";
 import { addNewTodoInputEventHandler } from "../shared/eventsHandler";
 export class Todo {
@@ -51,7 +57,7 @@ const createTableRow = function (todo, projectName) {
   tableDataProjectName.textContent = projectName;
 
   const tableDataDueDate = document.createElement("td");
-  tableDataDueDate.textContent = dateFormatter(todo.dueDate);
+  tableDataDueDate.textContent = todo.dueDate ? dateFormatter(todo.dueDate) : "no-date";
 
   const tableDataDeleteButton = document.createElement("i");
   tableDataDeleteButton.classList.add("fa-solid", "fa-trash", "delete-icon");
@@ -159,5 +165,9 @@ export const getFormValues = function () {
     ? true
     : false;
 
-  return { projectId, inputText, dueDate, priority };
+  const createdTodo = new Todo(inputText, null, dueDate, projectId, priority);
+
+  addToLocalStorage("todo", createdTodo);
+
+  return createdTodo;
 };
